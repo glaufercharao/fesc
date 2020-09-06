@@ -1,5 +1,6 @@
 package com.fesc.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,9 +14,17 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
+	
+	@Column(name="descricao")
 	private String descricao;
+	
+	@Column(name="tipo_produto")
 	private String tipoProduto;
+	
+	@Column(name="valor_fornecedor")
 	private double valorFornecedor;
+	
+	@Column(name="quantidade_estoque")
 	private int quantidadeEstoque;
 	
 	public Produto() {}
