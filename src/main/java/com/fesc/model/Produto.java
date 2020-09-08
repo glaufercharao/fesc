@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="produto")
@@ -16,15 +17,19 @@ public class Produto {
 	private Long codigo;
 	
 	@Column(name="descricao")
+	@NotNull
 	private String descricao;
 	
 	@Column(name="tipo_produto")
+	@NotNull
 	private String tipoProduto;
 	
 	@Column(name="valor_fornecedor")
+	@NotNull
 	private double valorFornecedor;
 	
 	@Column(name="quantidade_estoque")
+	@NotNull
 	private int quantidadeEstoque;
 	
 	public Produto() {}
