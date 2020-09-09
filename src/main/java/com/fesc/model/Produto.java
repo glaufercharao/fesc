@@ -1,5 +1,7 @@
 package com.fesc.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,12 +12,17 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="produto")
-public class Produto {
+public class Produto implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	
+
 	@Column(name="descricao")
 	@NotNull
 	private String descricao;
@@ -73,6 +80,7 @@ public class Produto {
 	public void setQuantidadeEstoque(int quantidadeEstoque) {
 		this.quantidadeEstoque = quantidadeEstoque;
 	}
+
 
 	@Override
 	public int hashCode() {

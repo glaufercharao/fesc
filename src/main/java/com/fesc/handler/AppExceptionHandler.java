@@ -16,11 +16,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class ExceptionHandler extends ResponseEntityExceptionHandler {
+public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@Autowired
 	private MessageSource messageSource;
@@ -44,11 +45,11 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
 	
-	@org.springframework.web.bind.annotation.ExceptionHandler({EmptyResultDataAccessException.class})
-	public ResponseEntity<Object>  handleEmptyResultDataAccessEsception(EmptyResultDataAccessException ex, WebRequest request){
+	@ExceptionHandler({EmptyResultDataAccessException.class})
+	public ResponseEntity<Object> handleEmptyResultDataAccessEsception(EmptyResultDataAccessException ex, WebRequest request){
 		
 		String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrato",null, LocaleContextHolder.getLocale());
-		String mensagemDesenvolvedor = ex.getCause().toString();
+		String mensagemDesenvolvedor = ex.toString();
 		List<Erro> erros = Arrays.asList( new Erro(mensagemUsuario, mensagemDesenvolvedor));
 		
 		return handleExceptionInternal(ex,erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);

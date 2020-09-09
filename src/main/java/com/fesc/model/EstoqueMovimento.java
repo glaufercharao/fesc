@@ -1,41 +1,53 @@
 package com.fesc.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fesc.enumerator.TipoMovimentacao;
 
 @Entity
 @Table(name="estoque_movimento")
-public class EstoqueMovimento {
+public class EstoqueMovimento implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_produto")
+	@NotNull
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="id_produto", referencedColumnName = "codigo" )
 	private Produto produto;
 	
 	@Column(name="tipo_movimentacao")
+	@NotNull
 	private TipoMovimentacao movimentacao;
 	
 	@Column(name="valor_venda")
+	@NotNull
 	private double valorVenda;
 	
 	@Column(name="data_venda")
+	@NotNull
 	private Date dataVenda;
 	
 	@Column(name="quantidade_movimentada")
+	@NotNull
 	private int quantidadeMovimentada;
 	
 	public EstoqueMovimento() {}
@@ -47,6 +59,7 @@ public class EstoqueMovimento {
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
+	
 
 	public Produto getProduto() {
 		return produto;
