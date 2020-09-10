@@ -10,12 +10,14 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fesc.ServiceEstoqueMovimento;
+import com.fesc.enumerator.TipoMovimentacao;
 import com.fesc.event.ResourceEvent;
 import com.fesc.model.EstoqueMovimento;
 import com.fesc.repository.EstoqueMovimentoRepository;
@@ -36,6 +38,12 @@ public class EstoqueMovimentoResource {
 	@GetMapping
 	public List<EstoqueMovimento> listarEstoque(){
 		return estoqueMovimentoRepository.findAll();
+	}
+	
+	@GetMapping("/tipo_movimentacao/{tipo}")
+	public List<EstoqueMovimento> tipoMovimentacao(@PathVariable int tipo){
+
+		return estoqueMovimentoRepository.consultarProdutoTipo(tipo == 0 ? TipoMovimentacao.ENTRADA : TipoMovimentacao.SAIDA);
 	}
 	
 	@PostMapping("/saida")
